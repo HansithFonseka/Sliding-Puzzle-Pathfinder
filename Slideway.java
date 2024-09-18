@@ -55,7 +55,7 @@ public class Slideway {
      * @param column column number of the node
      * @return true or false according to the valid positioning of the node
      */
-    
+
     public boolean checkValidPlace(int row, int column) {
         return row >= 0 && column >= 0
                 && row < puzzle.length && column < puzzle[0].length
@@ -95,5 +95,47 @@ public class Slideway {
 
         if (!pathFound){ //if path not found
             System.out.println("No Path Found");
+        }
+    }
+
+        /**
+     * Method to slide the node
+     * @param position the node to slide
+     * @param x the increment of the x value
+     * @param y the increment of the y value
+     */
+    
+    public void slipNode(Places position, int x, int y) {
+        int row = position.getRowNumber();
+        int column = position.getColumnNumber();
+
+        while(true) {
+            row += y;
+            column += x;
+
+            if (!checkValidPlace(row, column)) { //checking if the position is valid or not
+                break;
+            }
+
+            if (puzzle[row][column] == 'F') {  //if the position is the end position
+                Places nextItem = new Places(row, column); // create a position object and store the x and y values
+                nextItem.setParent(position); // set the parent or the previous position of the new node
+                nodeQueue.add(0, nextItem);    //add the node to the front of the queue
+                nextItem.direction = getDirection(position,nextItem);   //get the direction of the node movement
+                visitedArray[row][column] = true; //set visited in the array true
+                break;
+            }
+
+            int nextRow  = row + y;
+            int nextColumn = column + x;
+            // if the next position is a wall or a rock the position before is stored
+            if ((nextRow < 0 || nextColumn < 0) || (nextRow >= puzzle.length || nextColumn >= puzzle.length) || (puzzle[nextRow][nextColumn] == '0')) {
+                Places nextItem = new Places(row, column);
+                nextItem.setParent(position);
+                nodeQueue.add(nextItem);
+                nextItem.direction = getDirection(position,nextItem);
+                visitedArray[row][column] = true;
+                break;
+            }
         }
     }
