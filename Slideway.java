@@ -162,3 +162,32 @@ public class Slideway {
         }
         return direction;
     }
+
+    /**
+     * Method to display the path
+     * @param currentPosition the final position used to back track to the start position to find the path
+     */
+    private void displayPath(Places currentPosition) throws IOException {
+
+        ArrayList<Places> path = new ArrayList<>();
+        Places currentNode = currentPosition;
+        while (currentNode.getParent() != null) {
+            path.add(currentNode);
+            currentNode = currentNode.getParent();
+        }
+        Collections.reverse(path);
+        System.out.println("01. Start at (" + (start.getColumnNumber()+1) + "," + (start.getRowNumber()+1) + ")");
+
+        int count = 2;
+        for (Places places : path) {
+            if (count < 10){
+                System.out.println("0" + count  + ". " + "Move " + places.direction + " To (" + (places.getColumnNumber()+1) + "," + (places.getRowNumber()+1) + ")");
+            }
+            else {
+                System.out.println(count  + ". " + "Move " + places.direction + " To (" + (places.getColumnNumber()+1) + "," + (places.getRowNumber()+1) + ")");
+            }
+            count++;
+        }
+        System.out.println(count + ". "  + "Done!");
+    }
+}
