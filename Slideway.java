@@ -104,7 +104,7 @@ public class Slideway {
      * @param x the increment of the x value
      * @param y the increment of the y value
      */
-    
+
     public void slipNode(Places position, int x, int y) {
         int row = position.getRowNumber();
         int column = position.getColumnNumber();
@@ -138,4 +138,27 @@ public class Slideway {
                 break;
             }
         }
+    }
+
+    /**
+     * Method to get the direction
+     * @param node current position of the node
+     * @param neighbour next position of the node
+     * @return the direction of the node has moved from the previous node
+     */
+    private String getDirection(Places node, Places neighbour) {
+        String direction = "";
+        if (neighbour.getColumnNumber() < node.getColumnNumber()){
+            direction = "Left";
+        }
+        if (neighbour.getColumnNumber() > node.getColumnNumber()){
+            direction = "Right";
+        }
+        if (neighbour.getRowNumber() > node.getRowNumber()){
+            direction = "Down";
+        }
+        if (neighbour.getRowNumber() < node.getRowNumber()){
+            direction = "Up";
+        }
+        return direction;
     }
