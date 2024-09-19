@@ -37,3 +37,14 @@ public class Main {
             System.out.println("The document is not valid");
         }
     }
+    /**
+     * method to create the puzzle in a 2d array
+     */
+    public static void createPuzzle(){
+        puzzle = new char[noOfRows][noOfRows];
+        for( int i =0; i<puzzleRows.size(); i++){
+            puzzle[i] = puzzleRows.get(i).toCharArray();
+        }
+    }
+
+
