@@ -46,5 +46,23 @@ public class Main {
             puzzle[i] = puzzleRows.get(i).toCharArray();
         }
     }
-
+    /**
+     * method to check in the document has a start point, end point!!
+     */
+    private static boolean checkValidDocument() {
+        boolean hasStartPos = false;
+        boolean hasEndPos = false;
+        for (char[] chars : puzzle) {
+            for (char aChar : chars) {
+                if (aChar == 'S') {
+                    hasStartPos = true;
+                }
+                if (aChar == 'F') {
+                    hasEndPos = true;
+                }
+            }
+        }
+        return hasStartPos && hasEndPos;
+    }
+}
 
